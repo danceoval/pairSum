@@ -23,7 +23,7 @@ pairSum([2], 2) -> false
 pairSum([], 1) -> false
 ```
 
-# Brute force
+# Brute force Solution
 
 ## Approach: __Nested loops__
 
@@ -54,3 +54,19 @@ function pairSum(arr, sum) {
 
 ### Space Complexity: __O(1)__
 - The memory needed doesn't increase based on the size of the input.
+
+# Optimized Solution
+
+## Approach: __Pointers__
+The main hint in the prompt to work in an optimized approach is that that the numbers are sorted in ascending order. With that information, it's possible to create two `pointers`, one pointing to the element at position `0` and another one to the element at position `N-1`. Inside a while loop, it's is possible to move the pointers based on these conditions:
+  -
+
+then adding both elements and comparing the result with `sum`. If they are equal, the function returns `true`.
+
+## Code
+
+## Performance analysis
+
+### Time Complexity: __O(n)__
+
+### Space Complexity: __O(1)__
