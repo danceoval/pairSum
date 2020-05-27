@@ -29,7 +29,8 @@ pairSum([], 1) -> false
 
 The easiest way to approach this problem is looping over the given array, fixing element at position `i` and looping over it again, from `i+1` up to element at `N-1` position, adding the fixed element to the current one. If it matches `sum` returns `true`. Otherwise, continue the loop up to the end of the array. If there is no match, return `false`
 
-### Code
+## Code
+
 ```js
 function pairSum(arr, sum) {
   for(let i = 0; i < arr.length-1; i++) {
@@ -44,3 +45,12 @@ function pairSum(arr, sum) {
   return false
 }
 ```
+## Performance analysis
+
+### Time Complexity: __O(n^2)__
+- Looping over the given array to fix an element -> `n`
+- Looping over the given array again -> `n`
+- Since the second loop happens inside the first one, it's necessary to multipy both -> `n * n`
+
+### Space Complexity: __O(1)__
+- The memory needed doesn't increase based on the size of the input.
