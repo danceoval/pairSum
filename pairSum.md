@@ -58,15 +58,43 @@ function pairSum(arr, sum) {
 # Optimized Solution
 
 ## Approach: __Pointers__
-The main hint in the prompt to work in an optimized approach is that that the numbers are sorted in ascending order. With that information, it's possible to create two `pointers`, one pointing to the element at position `0` and another one to the element at position `N-1`. Inside a while loop, it's is possible to move the pointers based on these conditions:
-  -
 
-then adding both elements and comparing the result with `sum`. If they are equal, the function returns `true`.
+The main hint in the prompt to devise an optimized approach is that the numbers are sorted in ascending order. With that information, it's possible to create two `pointers`:
+ - One pointing to the element at position `0`, that can be called `leftPointer`
+ - Another one to the element at position `N-1`, that can be called `rightPointer`
+
+And using a while loop, it's possible to add the elements in the given array at `leftPointer` and `rightPointer` and compare it with `sum`. Based on the result, the possible outcomes are:
+
+  1. They are equals, function returns `true`;
+  2. The sum of the elements is smaller than `sum`, `leftPointer` is increased by one;
+  3. The sum of the elements is greater than `sum`, `rightPointer` is decreased by one;
+
+The loop should breaks out when `leftPointer` and `rightPointer` are equals, meaning all the possible sum for two elements in the array were evaluated. At this point, function can return `false`.
 
 ## Code
+
+```js
+  function pairSum(arr, sum) {
+  let leftPointer = 0
+  let rightPointer = arr.length -1
+  while(leftPointer < rightPointer) {
+    const currentSum = arr[leftPointer] + arr[rightPointer]
+    if(currentSum === sum) {
+      return true
+    } else if(currentSum < sum) {
+      leftPointer++
+    } else {
+      rightPointer--
+    }
+  }
+  return false
+}
+```
 
 ## Performance analysis
 
 ### Time Complexity: __O(n)__
+  - In the worst case, when there is no pair that adds up to the sum, the while loop will visit all the elements in the array only once.
 
 ### Space Complexity: __O(1)__
+- The memory needed doesn't increase based on the size of the input.
