@@ -142,8 +142,8 @@ Instead of looking for pairs, it's possible to look for target values, consideri
 Using [memoization](https://en.wikipedia.org/wiki/Memoization), we can use an object to store all the target values.
 
 Given that, it's possible to loop over the given array, and for every value on it perform the follow:
-  - check if the current value is already in the hash table. If so, it means it could be added to a previous one to adds up to the `sum` and the function can return `true`;
-  - Store the target value for the current element in the hash table.
+  - check if the current value is already in the memo. If so, it means it can be added to a previous element to add up to the `sum` and the function can return `true`;
+  - Store the target value for the current element in the memo.
 
 If the loop breaks out without finding any match, the function returns `false`.
 
