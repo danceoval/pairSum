@@ -48,7 +48,7 @@ function pairSum(arr, sum) {
 ## Performance analysis
 
 ### Time Complexity: __O(N^2)__
-- The first loop `i` runs from `N-2` steps. We can consider `N` interations.
+- In the first loop, `i` runs from `N-2` steps. We can consider `N` interations.
 - In the neasted loop, in the first interation, `j` runs for `N-2` steps. The second time, it's `N-3`. And so on.
 - Considering both points about, it means the code iterates through each pair of values for `(i,j)` where `j` is bigger than `i`. When N = 6, those are the pairs:
 
@@ -79,6 +79,21 @@ And using a while loop, it's possible to add the elements in the given array at 
   3. The sum of the elements is greater than `sum`, `rightPointer` is decreased by one;
 
 The loop should breaks out when `leftPointer` and `rightPointer` are equals, meaning all the possible sum for two elements in the array were evaluated. At this point, function can return `false`.
+
+_visualizing the steps_
+
+```js
+input: arr = [1,3,4,5] sum = 7
+
+                *     *
+1. interation: [1,3,4,5] -> currentSum = 6 < sum -> move left pointer
+                  *   *
+2. interation: [1,3,4,5] -> currentSum = 8 > sum -> move right pointer
+                  * *
+3. interation: [1,3,4,5] -> currentSum = 7 === sum -> return true
+
+
+```
 
 ## Code
 
