@@ -167,7 +167,7 @@ function pairSum(arr, sum) {
 ## Performance analysis
 
 ### Time Complexity: __O(N)__
-- In the worst case, will be necessary to loop the entire array once.
+- In the worst case, `i` runs for `N` steps.
 
 ### Space Complexity: __O(N)__
-- In the worst case, a new key will be added to `targetMemo` for each element in the array
+- In the worst case, a new key will be added to `targetMemo` for all elements (`N`) in the array
