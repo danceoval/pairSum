@@ -117,14 +117,14 @@ input: arr = [1,3,4,5] sum = 7
 
 ## Performance analysis
 
-### Time Complexity: __O(n)__
+### Time Complexity: __O(N)__
   - In the worst case, when there is no pair that adds up to the sum, the while loop will visit all the elements in the array only once.
 
 ### Space Complexity: __O(1)__
 - The memory needed doesn't increase based on the size of the input.
 
 # Possible Extended Question
-How to create a solution where the time complexity is the same as in the optimized solution above, but the integers are not sorted?
+The brute for solution works for non sorted ingeters, but the optmized solution doesn't. How can we create a solution where the time complexity is the same one as in the optimized solution, but the integers are not sorted?
 
 ## Examples
 
@@ -133,13 +133,13 @@ pairSum([1, 5, 2, 4, 3, 1], 7) -> true
 pairSum([5, 3, 2, 4, 1], 10) -> false
 ```
 
-## Approach: __Hash Table__
+## Approach: __Memoization__
 
 Instead of looking for pairs, it's possible to look for target values, considering the following:
 
 `target = sum - arr[i]`
 
-A object can work as a [hash table](https://en.wikipedia.org/wiki/Hash_table), where all the target values will be stores.
+Using [memoization](https://en.wikipedia.org/wiki/Memoization), we can use an object to store all the target values.
 
 Given that, it's possible to loop over the given array, and for every value on it perform the follow:
   - check if the current value is already in the hash table. If so, it means it could be added to a previous one to adds up to the `sum` and the function can return `true`;
@@ -151,13 +151,13 @@ If the loop breaks out without finding any match, the function returns `false`.
 
 ```js
 function pairSum(arr, sum) {
-  const targetMap = {}
+  const targetMemo = {}
   for (let i = 0; i < arr.length; i++) {
     const target = sum - arr[i]
-    if (targetMap[arr[i]]) {
+    if (targetMemo[arr[i]]) {
       return true
     } else {
-      targetMap[target] = true
+      targetMemo[target] = true
     }
   }
   return false
@@ -166,8 +166,8 @@ function pairSum(arr, sum) {
 
 ## Performance analysis
 
-### Time Complexity: __O(n)__
+### Time Complexity: __O(N)__
 - In the worst case, will be necessary to loop the entire array once.
 
-### Space Complexity: __O(n)__
-- In the worst case, a new key will be added to the hash table storing the target values for each element in the array
+### Space Complexity: __O(N)__
+- In the worst case, a new key will be added to `targetMemo` for each element in the array
