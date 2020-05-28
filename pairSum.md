@@ -33,11 +33,11 @@ The easiest way to approach this problem is looping over the given array, fixing
 
 ```js
 function pairSum(arr, sum) {
-  for(let i = 0; i < arr.length-1; i++) {
+  for (let i = 0; i < arr.length-1; i++) {
     const fixed = arr[i]
-    for(let j = i+1; j < arr.length; j++) {
+    for (let j = i+1; j < arr.length; j++) {
       const current = arr[j]
-      if(fixed + current === sum) {
+      if (fixed + current === sum) {
         return true
       }
     }
@@ -61,7 +61,7 @@ function pairSum(arr, sum) {
 
 The main hint in the prompt to devise an optimized approach is that the numbers are sorted in ascending order. With that information, it's possible to create two `pointers`:
  - One pointing to the element at position `0`, that can be called `leftPointer`
- - Another one to the element at position `N-1`, that can be called `rightPointer`
+ - Another one pointing to the element at position `N-1`, that can be called `rightPointer`
 
 And using a while loop, it's possible to add the elements in the given array at `leftPointer` and `rightPointer` and compare it with `sum`. Based on the result, the possible outcomes are:
 
@@ -76,12 +76,12 @@ The loop should breaks out when `leftPointer` and `rightPointer` are equals, mea
 ```js
   function pairSum(arr, sum) {
   let leftPointer = 0
-  let rightPointer = arr.length -1
-  while(leftPointer < rightPointer) {
+  let rightPointer = arr.length - 1
+  while (leftPointer < rightPointer) {
     const currentSum = arr[leftPointer] + arr[rightPointer]
-    if(currentSum === sum) {
+    if (currentSum === sum) {
       return true
-    } else if(currentSum < sum) {
+    } else if (currentSum < sum) {
       leftPointer++
     } else {
       rightPointer--
@@ -98,3 +98,52 @@ The loop should breaks out when `leftPointer` and `rightPointer` are equals, mea
 
 ### Space Complexity: __O(1)__
 - The memory needed doesn't increase based on the size of the input.
+
+# Possible Extended Question
+How to create a solution where the time complexity is the same as in the optimized solution above, but the integers are not sorted?
+
+## Examples
+
+```js
+pairSum([1, 5, 2, 4, 3, 1], 7) -> true
+pairSum([5, 3, 2, 4, 1], 10) -> false
+```
+
+## Approach: __Hash Table__
+
+Instead of looking for pairs, it's possible to look for target values, considering the following:
+
+`target = sum - arr[i]`
+
+A object can work as a [hash table](https://en.wikipedia.org/wiki/Hash_table), where all the target values will be stores.
+
+Given that, it's possible to loop over the given array, and for every value on it perform the follow:
+  - check if the current value is already in the hash table. If so, it means it could be added to a previous one to adds up to the `sum` and the function can return `true`;
+  - Store the target value for the current element in the hash table.
+
+If the loop breaks out without finding any match, the function returns `false`.
+
+## Code
+
+```js
+function pairSum(arr, sum) {
+  const targetMap = {}
+  for (let i = 0; i < arr.length; i++) {
+    const target = sum - arr[i]
+    if (targetMap[arr[i]]) {
+      return true
+    } else {
+      targetMap[target] = true
+    }
+  }
+  return false
+}
+```
+
+## Performance analysis
+
+### Time Complexity: __O(n)__
+- In the worst case, will be necessary to loop the entire array once.
+
+### Space Complexity: __O(n)__
+- In the worst case, a new key will be added to the hash table storing the target values for each element in the array
