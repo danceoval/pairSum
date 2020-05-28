@@ -133,17 +133,17 @@ pairSum([1, 5, 2, 4, 3, 1], 7) -> true
 pairSum([5, 3, 2, 4, 1], 10) -> false
 ```
 
-## Approach: __Memoization__
+## Approach: __Using a map__
 
 Instead of looking for pairs, it's possible to look for target values, considering the following:
 
 `target = sum - arr[i]`
 
-Using [memoization](https://en.wikipedia.org/wiki/Memoization), we can use an object to store all the target values.
+Using a `map`, we can use an object to store all the target values.
 
 Given that, it's possible to loop over the given array, and for every value on it perform the follow:
-  - check if the current value is already in the memo. If so, it means it can be added to a previous element to add up to the `sum` and the function can return `true`;
-  - Store the target value for the current element in the memo.
+  - check if the current value is already in the `map`. If so, it means it can be added to a previous element to add up to the `sum` and the function can return `true`;
+  - Store the target value for the current element in the `map`.
 
 If the loop breaks out without finding any match, the function returns `false`.
 
@@ -151,13 +151,13 @@ If the loop breaks out without finding any match, the function returns `false`.
 
 ```js
 function pairSum(arr, sum) {
-  const targetMemo = {}
+  const targetMap = {}
   for (let i = 0; i < arr.length; i++) {
     const target = sum - arr[i]
-    if (targetMemo[arr[i]]) {
+    if (targetMap[arr[i]]) {
       return true
     } else {
-      targetMemo[target] = true
+      targetMap[target] = true
     }
   }
   return false
@@ -170,4 +170,4 @@ function pairSum(arr, sum) {
 - In the worst case, `i` runs for `N` steps.
 
 ### Space Complexity: __O(N)__
-- In the worst case, a new key will be added to `targetMemo` for all elements (`N`) in the array
+- In the worst case, a new key will be added to `targetMap` for all elements (`N`) in the array
