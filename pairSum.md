@@ -1,17 +1,17 @@
 # Pair Sum
 
 ## Interviewer Prompt
-Given an array of N numbers sorted in ascending order (least to greatest), and a separate number (a "sum"), determine if any 2 numbers in the array add up to the sum. Return true if any 2 different numbers within the array add up to sum. Return false if no 2 numbers in the array add up to sum.
+Given an array `arr` consisting of `N` integers, sorted in ascending order (least to greatest), and a separate number (a `sum`), determine if any 2 numbers in the array add up to the sum. Return `true` if any 2 different numbers within the array add up to sum. Return `false` if no 2 numbers in the array add up to sum.
 
 
 ## Examples
 
 ```js
-pairSum([1, 1, 2, 3, 4, 5], 7) -> true
+pairSum([1, 1, 2, 3, 4, 5], 7) -> true (either 2+5 or 3+4)
 pairSum([1, 2, 3, 4, 5], 10) -> false
-pairSum([0, 2, 3, 6, 9, 10], 10) -> true
+pairSum([0, 2, 3, 6, 9, 10], 10) -> true (0 + 10)
 pairSum([1, 2, 3, 7, 8], 7) -> false
-pairSum([-2, 0, 4, 6, 10], 8) -> true
+pairSum([-2, 0, 4, 6, 10], 8) -> true (-2 + 10)
 pairSum([1, 2, 3, 4, 5], 2) -> false
 ```
 
@@ -27,7 +27,7 @@ pairSum([], 1) -> false
 
 ## Approach: __Nested loops__
 
-The easiest way to approach this problem is looping over the given array, fixing element at position `i` and looping over it again, from `i+1` up to element at `N-1` position, adding the fixed element to the current one. If it matches `sum` returns `true`. Otherwise, continue the loop up to the end of the array. If there is no match, return `false`
+The easiest way to approach this problem is looping over the given array, fixing an element at position `i` and looping over it again, from `i+1` up to element at `N-1` position, adding the fixed element to the current one. If it matches `sum` returns `true`. Otherwise, continue the loop up to the end of the array. If there is no match, return `false`
 
 ## Code
 
@@ -47,10 +47,19 @@ function pairSum(arr, sum) {
 ```
 ## Performance analysis
 
-### Time Complexity: __O(n^2)__
-- Looping over the given array to fix an element -> `n`
-- Looping over the given array again -> `n`
-- Since the second loop happens inside the first one, it's necessary to multipy both -> `n * n`
+### Time Complexity: __O(N^2)__
+- The first loop `i` runs from `N-2` steps. We can consider `N` interations.
+- In the neasted loop, in the first interation, `j` runs for `N-2` steps. The second time, it's `N-3`. And so on.
+- Considering both points about, it means the code iterates through each pair of values for `(i,j)` where `j` is bigger than `i`. When N = 6, those are the pairs:
+
+```js
+(0,1) (0,2) (0,3) (0,4)
+      (1,2) (1,3) (1,4)
+            (2,3) (2,4)
+                  (3,4)
+```
+
+The size of this matrix is half of a `N-2 x N-2` matrix or `((N-2)ˆ2)/2`. Dropping all constants, we end with a complexity of `N^2`
 
 ### Space Complexity: __O(1)__
 - The memory needed doesn't increase based on the size of the input.
